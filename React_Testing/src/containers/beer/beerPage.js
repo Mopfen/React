@@ -7,7 +7,7 @@ export class Beer extends React.Component
 
     componentDidMount() {
         //fetch("https://randomuser.me/api/?results=10", { method: 'GET'})
-        fetch("http://dobrepiwo.azurewebsites.net/api/beer/?format=json", { method: 'GET'})
+        fetch("http://dobrepiwo.azurewebsites.net/api/beer", { method: 'GET'})
           .then(res => res.json())
           .then(json => this.setState({ beers: json.results }));
       }

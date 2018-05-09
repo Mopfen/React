@@ -6,7 +6,7 @@ export class BeersList extends React.Component {
       //const name = beer.phone;
       //const id = beer.login.username;
       const name = beer.name;
-      const id = beer.name;
+      const id = beer.id;
       return <BeerItem key={id} name = {name} />;
     };
   
