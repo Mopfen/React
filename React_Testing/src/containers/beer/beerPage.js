@@ -1,31 +1,25 @@
 import React from 'react';
+import { connect } from "react-redux";
 import { BeersList } from './beersList.js'
 import * as Error from "../../common/errors.js";
+import { beersFetched } from "../../modules/actions";
 
 export class Beer extends React.Component
 {
-    state = { beers: [], isLoading: false, error: false };
+    state = { isLoading: false, error: false };
 
     componentDidMount()
     {
         this.setState({isLoading: true});
 
-        try
-        {
-            //fetch("http://dobrepiwo.azurewebsites.net//api/beer/", { method: 'GET'})
-            fetch("http://localhost:64547/api/user/all", { method: 'GET', headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}})
-            .then(res => res.json())
-            .then(json => this.setState({ beers: json.Users, isLoading: false }));
-        }
-        catch(e)
-        {
-            this.setState({error: true});
-        }
+        fetch("http://localhost:64547/api/user/all", { method: 'GET', headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}})
+        .then(res => res.json())
+        .then(json => this.props.beersFetched(json.Users), this.setState({isLoading: false}));
     }
 
     render()
     {
-        const beers = this.state.beers;
+        const beers = this.props.beers;
         const isLoading = this.state.isLoading;
         const error = this.state.error;
         return(
@@ -50,3 +44,12 @@ const Content = ({beers, isLoading, error}) => {
         <p className="text-white"> <BeersList beers={beers}/></p>
     );
 }
+
+const mapStateToProps = state => {
+    return {
+      beers: state.beers
+    }
+  };
+const mapDispatchToProps = { beersFetched };
+
+export const BeerContainer = connect(mapStateToProps, mapDispatchToProps)(Beer);
