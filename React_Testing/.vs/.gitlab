@@ -1,0 +1,13 @@
+{
+  "User": {
+    "Id": 2152841,
+    "Username": "mopfen",
+    "Name": "Michał Skłodowski",
+    "Email": "mopfenmail@gmail.com",
+    "AvatarUrl": "https://secure.gravatar.com/avatar/909d82fd38ba3668cb6a9c731c18ad4a?s=80&d=identicon",
+    "PrivateToken": "6c5fa7bc00debe579d6da91f01138d0ae4b1dae6082659e44914e4409662def0",
+    "Host": "https://gitlab.com",
+    "TwoFactorEnabled": false,
+    "ApiVersion": 3
+  }
+}

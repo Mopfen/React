@@ -21,7 +21,7 @@ export class BeersList extends React.Component {
       catch(e)
       {
         return(
-          <b><Error.DataError/></b>
+          <b>{<Error.DataError/>}</b>
         );  
       }
     }

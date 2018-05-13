@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import { beersFetched } from "../actions";
+import { beers } from "./beers.js";
 //import * as actions from "./actions";
 
 export default combineReducers({
-  beersFetched
+  beers
   //actions.beersFetched
 });

@@ -23,8 +23,9 @@ export class Beer extends React.Component
         const isLoading = this.state.isLoading;
         const error = this.state.error;
         return(
-            <div className = "bg-warning">
+            <div className = "bg-warning" style={ {'background-image': 'url("beer.jpg")', 'background-repeat': 'repeat-y', 'background-size': '100% auto'} }>
                 <h1 className="text-light">Beer Page by Mopfen</h1>
+                <img src="goku.png"/>
                 <h4><Content beers={beers} isLoading = {isLoading} error = {error}/></h4>
             </div>
         );
