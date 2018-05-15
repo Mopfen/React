@@ -1,9 +1,14 @@
-export const beers = (state = [], action) => {
+const initialState = {
+  beers: []
+};
+
+export const Beers = (state = initialState, action) => {
     switch (action.type) {
       case 'FETCH_BEERS_SUCCESS':
-        return [
-          ...action.beers
-        ]
+        return {
+          ...state,
+          beers: action.beers
+        }
       default:
         return state
     }

@@ -2,30 +2,24 @@ import React from 'react';
 import { connect } from "react-redux";
 import { BeersList } from './beersList.js'
 import * as Error from "../../common/errors.js";
-import { beersFetched } from "../../modules/actions";
+import { fetchBeers} from "../../modules/actions";
+import * as BeerSelectors from "../../modules/selectors/beers.js"
 
 export class Beer extends React.Component
 {
-    state = { isLoading: false, error: false };
-
     componentDidMount()
     {
-        this.setState({isLoading: true});
-
-        fetch("http://localhost:64547/api/user/all", { method: 'GET', headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}})
-        .then(res => res.json())
-        .then(json => this.props.beersFetched(json.Users), this.setState({isLoading: false}));
+        this.props.fetchBeers();
     }
 
     render()
     {
         const beers = this.props.beers;
-        const isLoading = this.state.isLoading;
-        const error = this.state.error;
+        const isLoading = false;
+        const error = false;
         return(
-            <div className = "bg-warning" style={ {'background-image': 'url("beer.jpg")', 'background-repeat': 'repeat-y', 'background-size': '100% auto'} }>
+            <div className = "bg-warning" style={ {'backgroundImage': 'url("beer.jpg")', 'backgroundRepeat': 'repeat-y', 'backgroundSize': '100% auto'} }>
                 <h1 className="text-light">Beer Page by Mopfen</h1>
-                <img src="goku.png"/>
                 <h4><Content beers={beers} isLoading = {isLoading} error = {error}/></h4>
             </div>
         );
@@ -42,15 +36,15 @@ const Content = ({beers, isLoading, error}) => {
             <b className="text-white">Ładowanie...</b>
         );
     return(
-        <p className="text-white"> <BeersList beers={beers}/></p>
+        <span className="text-white"> <BeersList beers={beers}/></span>
     );
 }
 
 const mapStateToProps = state => {
     return {
-      beers: state.beers
+      beers: BeerSelectors.beers(state)
     }
   };
-const mapDispatchToProps = { beersFetched };
+const mapDispatchToProps = { fetchBeers };
 
 export const BeerContainer = connect(mapStateToProps, mapDispatchToProps)(Beer);
