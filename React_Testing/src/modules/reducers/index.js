@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
-import { Beers } from "./beers.js";
+import { Beer } from "./beer.js";
+import { Common } from "./common.js";
 
 export default combineReducers({
-  Beers
+  Beer, Common
 });

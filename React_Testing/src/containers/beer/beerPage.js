@@ -2,34 +2,39 @@ import React from 'react';
 import { connect } from "react-redux";
 import { BeersList } from './beersList.js'
 import * as Error from "../../common/errors.js";
-import { fetchBeers} from "../../modules/actions";
-import * as BeerSelectors from "../../modules/selectors/beers.js"
+import { getBeers } from "../../modules/actions/beer.js";
+import * as BeerSelectors from "../../modules/selectors/beer.js"
+import * as CommonSelectors from "../../modules/selectors/common.js"
+import { store } from '../../store';
 
 export class Beer extends React.Component
 {
     componentDidMount()
     {
-        this.props.fetchBeers();
+        var bool = false;
+        store.dispatch({ type: 'ERROR_STATUS_CHANGED', bool });
+        this.props.getBeers();
     }
 
     render()
     {
         const beers = this.props.beers;
-        const isLoading = false;
-        const error = false;
+        const isLoading = this.props.isLoading;
+        const isError = this.props.isError;
+        const errorCode = this.props.errorCode;
         return(
             <div className = "bg-warning" style={ {'backgroundImage': 'url("beer.jpg")', 'backgroundRepeat': 'repeat-y', 'backgroundSize': '100% auto'} }>
                 <h1 className="text-light">Beer Page by Mopfen</h1>
-                <h4><Content beers={beers} isLoading = {isLoading} error = {error}/></h4>
+                <h4><Content beers={beers} isLoading = {isLoading} isError = {isError} errorCode = {errorCode}/></h4>
             </div>
         );
     }
 }
 
-const Content = ({beers, isLoading, error}) => {
-    if(error)
+const Content = ({beers, isLoading, isError, errorCode}) => {
+    if(isError)
         return(
-            <b className="text-white"><Error.DataError/></b>
+            <b className="text-white"><Error.DataError errorCode = {errorCode}/></b>
         );
     if(isLoading)
         return(
@@ -42,9 +47,12 @@ const Content = ({beers, isLoading, error}) => {
 
 const mapStateToProps = state => {
     return {
-      beers: BeerSelectors.beers(state)
+      beers: BeerSelectors.beers(state),
+      isLoading: CommonSelectors.isLoading(state),
+      isError: CommonSelectors.isError(state),
+      errorCode: CommonSelectors.errorCode(state)
     }
   };
-const mapDispatchToProps = { fetchBeers };
+const mapDispatchToProps = { getBeers };
 
 export const BeerContainer = connect(mapStateToProps, mapDispatchToProps)(Beer);

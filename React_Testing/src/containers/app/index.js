@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import { Header } from '../../common/Header'
 import { Home } from '../home/homePage';
 import { BeerContainer } from '../beer/beerPage';
-import { Login } from '../login/loginPage';
+import { LoginContainer } from '../login/loginPage';
 
 export class App extends React.Component
 {
@@ -17,7 +17,7 @@ export class App extends React.Component
       <main>
         <Route exact path="/" component={Home} />
         <Route path="/beers" render={()=><BeerContainer/>}/>
-        <Route path="/login" render={()=><Login/>}/>
+        <Route path="/login" render={()=><LoginContainer/>}/>
       </main>
     </div>);
   }

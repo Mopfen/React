@@ -14,14 +14,14 @@ export class BeersList extends React.Component {
       {
         return (
           <ul>
-            {this.props.beers.map(this.beerToBeerItem)}
+            {this.props.beers.Beers.map(this.beerToBeerItem)}
           </ul>
         );
       }
       catch(e)
       {
         return(
-          <b>{<Error.DataError/>}</b>
+        <b>{<Error.DataError errorCode = "999"/>}</b>
         );  
       }
     }
